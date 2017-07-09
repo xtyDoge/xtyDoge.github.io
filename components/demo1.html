@@ -1,0 +1,32 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>demo</title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+</body>
+
+
+<script>
+	var styleDic = {'0':'zero','2':'two','4':'four','8':'eight','16':'sixteen','32':'thirtytwo','64':'sixtyfour','128':'ohte','256':'thfs','512':'fht','1024':'ottf','2048':'ttfe'};
+	var styleList = {'zero':false,'two':false,'four':false,'eight':false,'sixteen':false,'thirtytwo':false,'sixtyfour':false,'ohte':false,'thfs':false,'fht':false,'ottf':false,'ttfe':false};
+	var getNumClass = function (i) {
+		for (var style in styleList){
+			styleList[style] = false;
+		}
+		for(var index in styleDic){
+			if (i == index) {
+				styleList[styleDic[index]] = true;
+			}     
+		}
+	};
+	
+	for(var k = 2;k < 2048;k
+		*=2){
+		getNumClass(k);
+		console.log(styleList);
+	}
+</script>							
+</html>

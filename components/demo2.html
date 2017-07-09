@@ -1,0 +1,47 @@
+作者：江南
+链接：https://www.zhihu.com/question/52318901/answer/130001951
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<div id="example">
+<ul>
+<my-list v-for="itemxxx in items" :item="itemxxx"></my-list>
+</ul>
+<button @click="changeCls">Change</button>
+</div>
+
+<script>
+        Vue.component('my-list',{
+            props:['item'],
+            template:'<li :class="[addClass]" @click="myfun(item)">{{d}}</li>',
+data:function(){
+return {
+                    addClass:this.item.className,
+                    d:this.item.data
+                };
+            },
+            methods:{
+myfun:function(item){
+                    console.log('className:'+item.className+' ---- data:'+item.data);
+                }
+            }
+        });
+new Vue({
+            el:'#example',
+            data:{
+                items:[
+                    {className:'myCls1',data:[1,4]},
+                    {className:'myCls2',data:[2,6]},
+                    {className:'myCls3',data:[3,1]},
+                    {className:'myCls10',data:[2,1]},
+
+                ]
+            },
+            methods:{
+                changeCls:function(){
+                    this.items[1].className = 'hisCls2';
+                    this.items[1].className.data = "you silly";
+                }
+            }
+        });
+</script>

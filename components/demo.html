@@ -1,0 +1,73 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>Vue Demo</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="reset.css">
+	<style type="text/css" media="screen">
+		.gamearea{height: 339px;width: 339px;background: #bbada1;border-radius: 5px;padding: 5px;margin: 0 auto;box-sizing: border-box;}
+		.col{width: 25%;height: 25%;position: relative;display: inline-block;float: left;}
+		.col>.col-color{position: absolute;top: 5px;bottom: 5px;left: 5px;right: 5px;background: #ccc0b5;border-radius: 2px;}
+		
+		.flip-list-move {transition: all 1s;}
+		.flip-list-enter, .list-complete-leave-active {
+		  opacity: 0;
+		  transform: translateY(30px);
+		}
+		.flip-list-leave-active {
+		  position: absolute;
+		}
+	</style>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+	<script src="app.js"></script>
+</head>
+<body>
+	
+	<div id="app" class="gamearea">
+		<transition-group name="flip-list" tag="div">
+	 	<my-component v-for="item in items" :key="item"  :number="item"></my-component>
+	  </transition-group>
+	  <button @click="shuffle">shuffle</button>
+	</div>
+
+
+
+<!-- 
+	<div class="gamearea" id="app">
+
+		<my-component :number="numArr[1]"></my-component>
+	</div>
+ -->
+</body>
+<script type="text/javascript">
+	//注册组件
+	var comp1 = {
+		template:"<div class=\"col\"><div class=\"col-color\">{{number}}</div></div>",
+		props:['number']
+	}
+
+	var Game = new Vue({
+		el:"#app",
+		data:{
+			numArr : game1.show(),
+			items: game1.show(),
+		},
+		components:{
+			'my-component':comp1
+		},
+		methods:{
+			pop:function() {
+				this.items.pop();
+			},
+			push:function() {
+				this.items.push(2);
+			},
+			shuffle:function(){
+				this.items = _.shuffle(this.items)
+			}
+		}
+	});
+</script>
+</html>

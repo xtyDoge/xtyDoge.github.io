@@ -1,0 +1,89 @@
+<!DOCTYPE>
+<html>
+<head>
+
+	<title>2048</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="reset.css">
+	<link href="https://unpkg.com/animate.css@3.5.1/animate.min.css" rel="stylesheet" type="text/css">
+	<style type="text/css" media="screen">
+		body{margin: 0px;background: #faf8ef;font-family: "Microsoft Yahei";overflow: hidden;}
+		.constr{margin: 25px 18px 94px 18px;}
+		.top-bar{height: 124px;width: 340px;margin: 0 auto;}
+		.gamearea{height: 339px;width: 339px;background: #bbada1;border-radius: 5px;padding: 5px;margin: 0 auto;box-sizing: border-box;position: relative;}
+		.col{width: 25%;height: 25%;position: relative;display: inline-block;float: left;}
+		.col>.col-color{position: absolute;top: 5px;bottom: 5px;left: 5px;right: 5px;background: #ccc0b5;border-radius: 2px;line-height: 72.25px;font-size: 30px;font-weight: bold;text-align: center;color: #fff;}
+		.intro{width: 100%;height: 80px;text-align: center;line-height: 80px;font-size: 12px;color: #958f87;margin-bottom: 20px;}
+		.title{width: 120px;height: 120px;line-height: 120px;font-size: 40px;font-weight: bold;text-align: center;background: #ebc32c;color: #fff;border-radius: 5px;margin-right: 20px;display: inline-block;}
+		.dashboard{display: inline-block;width: 199px;position: absolute;margin-right: 0px;height:120px;overflow: auto;}
+		.dashboard>.score,.dashboard>.highscore{float: left;display: inline-block;width: 94px;height: 70px;border-radius: 5px;background: #bbada1;margin-bottom: 10px;}
+		.dashboard>.score{margin-right: 10px;}
+		.dashboard>.score>span,.dashboard>.highscore>span{height: 35px;width: 100%;line-height: 35px;text-align: center;display:block;color: #fff;font-size: 18px;}
+		.dashboard>.menu,.dashboard>.ranking{width: 94px;height: 40px;border-radius: 4px;background:#eb9961;display: inline-block;display: inline-block;float: left;color: #fff;line-height: 40px;text-align: center;}
+		.dashboard>.menu{margin-right: 10px;}
+
+		.two,.four,.eight,.sixteen,.thirtytwo,.sixtyfour,.ohte{transition: background-color .8s;}
+		.col-color.zero{text-indent: -100px;overflow: hidden;}
+		.col-color.two{color: #776e65;background: #eee4da;}
+		.col-color.four{color: #776e65;background: #ede0c9;}
+		.col-color.eight{color:#fff ;background: #f1b07d;}
+		.col-color.sixteen{color:#fff ;background: #ea8e59;}
+		.col-color.thirtytwo{color:#fff ;background: #f37c65;}
+		.col-color.sixtyfour{color:#fff ;background: #e55a3e;}
+		.col-color.ohte{color:#fff ;background: #f2d773	;}
+		
+		.goLeft{position: absolute;top: 30%;bottom: 30%;left: 0px;right: 50%;z-index: 2;}
+		.goRight{position: absolute;top: 30%;bottom: 30%;left: 50%;right: 0px;z-index: 2;}
+		.goUp{position: absolute;top: 0;bottom: 70%;left: 0;right: 0;z-index: 2;}
+		.goDown{position: absolute;top: 70%;bottom: 0;left: 0;right: 0;z-index: 2;}
+		.failed{position: absolute;z-index: 3;top: 0px;bottom: 0px;left: 0px;right: 0px;opacity: 0.7;line-height: 339px;text-align: center;background: #272822;font-size: 40px;color: #c80000;}
+	</style>
+	<script src="js/Zepto.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="js/touchNeo.js"></script>
+</head>
+<body>
+	<div class="constr" id="app">
+	 				
+	<div class="top-bar">
+			<div class="title">
+				2048
+			</div>
+			<div class="dashboard">
+				<div class="score">
+					<span>Score</span>
+					<span style="font-size:24px;font-weight:bold">{{score}}</span>
+				</div>
+				<div class="highscore">
+					<span>Record</span>
+					<span style="font-size:24px;font-weight:bold">{{record}}</span>
+				</div>
+				<div class="menu">Menu</div>
+				<div class="ranking" @click="newGame">New Game</div>
+			</div>
+		</div>
+		<div class="intro">
+			隣り合う数字を合わせて2048のタイルを達成しましょう！
+		</div>
+
+		<div class="gamearea">
+			<div class="goLeft" @click="goLeft"></div>
+	 		<div class="goRight" @click="goRight"></div>
+	 		<div class="goUp" @click="goUp"></div>
+	 		<div class="goDown" @click="goDown"></div>
+	 		<div class="failed" v-show="isFailed">
+				 	You Failed!
+				 </div>
+			<transition-group  name="slide-fade"
+				     tag="div">
+				 
+	 			<col-component v-for="item in items" :key="item.index"  :number="item.content"></col-component>
+	 		 </transition-group>
+		</div>
+
+	</div>
+</body>
+	<script type="text/javascript" src="render.js"></script>
+</html>
